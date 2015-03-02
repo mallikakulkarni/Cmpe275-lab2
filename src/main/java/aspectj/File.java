@@ -13,21 +13,13 @@ public class File {
     private List<String> sharedWith;
     private List<String> unsharedWith;
 
-    public File(String filePath) {
+    public File(String filePath, String owner, String fileName) {
+        this.fileName = fileName;
+        this.owner = owner;
         this.filePath = filePath;
         List<String> sharedWith = new ArrayList<String>();
         List<String> unsharedWith = new ArrayList<String>();
-        fileName = "";
-        owner = "";
     }
-
-    private void createFileName() {
-        fileName = extractFileName(filePath);
-    }
-
-
-
-
 
     private String getFilePath() {
         return filePath;
@@ -41,8 +33,11 @@ public class File {
         return fileName;
     }
 
-    public int shareTheFile(String sharer, String targetUser) {
-        for (int i = 0; i < sharedWith.size(); i++) {
+    public void shareTheFile(String sharer, String targetUser) {
+
+
+    }
+       /* for (int i = 0; i < sharedWith.size(); i++) {
             if (targetUser.equals(sharedWith.get(i))) {
                 return 0;
             }
@@ -58,9 +53,16 @@ public class File {
             }
         }
         return -1;
+
+    }
+    */
+
+    public void unshareTheFile(String unsharer, String target){
+
+
     }
 
-    public int unshareTheFile(String unsharer, String target) {
+    /*
         boolean isShared = false;
         for (int i = 0; i < sharedWith.size(); i++) {
             if (target.equals(sharedWith.get(i))) {
@@ -78,7 +80,9 @@ public class File {
                 return 2;
             }
         }
+
     }
+    */
 
     private String extractOwner(String filePath) {
 

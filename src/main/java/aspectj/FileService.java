@@ -7,9 +7,6 @@ public class FileService implements IFileService {
 
     @Override
     public void shareFile(String userId, String targetUserId, String filePath) {
-        String owner = extractOwner(filePath);
-        String fileName = extractFileName(filePath);
-        File file = new File(fileName, owner);
     }
 
     @Override
