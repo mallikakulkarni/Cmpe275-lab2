@@ -7,8 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class HelloApp {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        HelloService helloService = (HelloService)context.getBean("aspectBean");
-        System.out.println(helloService.sayHello());
+        IFileService service = (IFileService) context.getBean("aspectBean");
+        System.out.println(service.readFile("Alice", "/home/Alice/shared/Af1.txt"));
     }
 }
 

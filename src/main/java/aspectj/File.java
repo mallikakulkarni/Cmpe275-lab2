@@ -10,18 +10,19 @@ public class File {
     private String fileName;
     private String filePath;
     private String owner;
-    private List<String> sharedWith;
-    private List<String> unsharedWith;
+    private List<String> sharedWith; // FIXME replace with hashtable
+    private List<String> unsharedWith; // FIXME delete this list
+
 
     public File(String filePath, String owner, String fileName) {
         this.fileName = fileName;
         this.owner = owner;
         this.filePath = filePath;
-        List<String> sharedWith = new ArrayList<String>();
-        List<String> unsharedWith = new ArrayList<String>();
+        this.sharedWith = new ArrayList<String>();
+        this.unsharedWith = new ArrayList<String>();
     }
 
-    private String getFilePath() {
+    public String getFilePath() {
         return filePath;
     }
 
@@ -33,9 +34,14 @@ public class File {
         return fileName;
     }
 
-    public void shareTheFile(String sharer, String targetUser) {
-
-
+    public File shareTheFile(String targetUser) {
+        for (String user : sharedWith) {
+            if (user.equals(targetUser)) {
+                return null;
+            }
+        }
+        sharedWith.add(targetUser);
+        return this;
     }
        /* for (int i = 0; i < sharedWith.size(); i++) {
             if (targetUser.equals(sharedWith.get(i))) {
@@ -57,9 +63,24 @@ public class File {
     }
     */
 
-    public void unshareTheFile(String unsharer, String target){
+    public File unshareTheFile(String target){
+        for (String user : unsharedWith) {
+            if (user.equals(target)) {
+                unsharedWith.remove(target);
+                return this;
+            }
+        }
+        return null;
 
+    }
 
+    public boolean canRead(String target, String filePath) {
+        for (String user : sharedWith) {
+            if (user.equals(target)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
