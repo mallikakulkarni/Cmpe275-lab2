@@ -36,11 +36,18 @@ public class FileService implements IFileService {
     }
 
     private void updateFileDetails(File file) {
+        boolean found = false;
+        File file2 = null;
         for (File file1 : fileList) {
             if (file.getFilePath().equals(file1.getFilePath())) {
-                fileList.remove(file1);
-                fileList.add(file);
+                found = true;
+                file2 = file1;
+                break;
             }
+        }
+        if (found) {
+            fileList.remove(file2);
+            fileList.add(file);
         }
     }
 
@@ -48,44 +55,19 @@ public class FileService implements IFileService {
     @Override
     public void shareFile(String userId, String targetUserId, String filePath) {
         File file = searchForFile(filePath);
-        if (file != null) {
-            file = file.shareTheFile(targetUserId);
-        } else {
-            System.out.println("File does not exist!");
-        }
-        if (file != null) {
-            updateFileDetails(file);
-            System.out.println("Successfully shared file with "+targetUserId );
-        } else {
-            System.out.println("Could not share file with "+targetUserId );
-        }
+        file = file.shareTheFile(targetUserId);
+        updateFileDetails(file);
     }
 
     @Override
     public void unshareFile(String userId, String targetUserId, String filePath) {
         File file = searchForFile(filePath);
-        if (file != null) {
-            file = file.unshareTheFile(targetUserId);
-        } else {
-            System.out.println("File does not exist!");
-        }
-        if (file != null) {
-            updateFileDetails(file);
-            System.out.println("Successfully unshared file with "+targetUserId );
-        } else {
-            System.out.println("Could not unshare file with "+targetUserId );
-        }
+        file = file.unshareTheFile(targetUserId);
+        updateFileDetails(file);
     }
 
     @Override
     public byte[] readFile(String userId, String filePath) {
-        File file = searchForFile(filePath);
-        if (file != null) {
-            System.out.println(userId+" read file "+filePath);
-            return new byte[0];
-        } else {
-            System.out.println("File does not exist!");
-            return null;
-        }
+        return new byte[0];
     }
 }
